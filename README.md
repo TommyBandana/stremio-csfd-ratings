@@ -55,3 +55,17 @@ Addon poběží na `http://localhost:7000`. Pro instalaci do Stremio potřebujet
 |---------|--------|
 | Stremio nevidí addon | Zkontrolujte, že URL je správná |
 | Žádné hodnocení u filmu | Film nemusí být na ČSFD.cz, nebo nebyl nalezen |
+| CSFD hodnocení se nezobrazuje | Addon musí být nad Cinemeta v seznamu addonů (viz níže) |
+
+### CSFD hodnocení se nezobrazuje
+
+Stremio používá metadata z prvního addonu, který odpoví. Pokud je **Cinemeta** nad naším addonem, Stremio použije jeho data a CSFD hodnocení se nezobrazí.
+
+**Řešení — přesuňte CSFD Ratings nad Cinemeta:**
+
+1. Jděte na [stremio-addon-manager.vercel.app](https://stremio-addon-manager.vercel.app/)
+2. Přihlaste se svým Stremio účtem
+3. Přetáhněte **CSFD Ratings** nad **Cinemeta** v seznamu addonů
+4. Uložte změny
+
+Po přeuspořádání bude Stremio dotazovat náš addon jako první a zobrazí CSFD hodnocení v popisu filmu i jako hvězdičkové skóre.
