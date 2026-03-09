@@ -1,0 +1,7 @@
+name = "csfd-ratings"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "f7c88268dede4fb0833d008c2ab0ec9c"
