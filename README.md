@@ -69,23 +69,37 @@ CSFD Ratings addon running on http://localhost:7000
 
 ### 5. Vytvořte HTTPS tunel
 
-Stremio vyžaduje HTTPS adresu pro instalaci addonu. Použijeme **localtunnel**, který zdarma vytvoří HTTPS adresu pro váš lokální addon.
+Stremio vyžaduje HTTPS adresu pro instalaci addonu. Použijeme **Cloudflare Tunnel**, který zdarma vytvoří HTTPS adresu pro váš lokální addon.
+
+#### Instalace cloudflared
+
+**macOS (přes Homebrew):**
+```
+brew install cloudflared
+```
+
+**Windows:** Stáhněte z [github.com/cloudflare/cloudflared/releases](https://github.com/cloudflare/cloudflared/releases/latest) — soubor `cloudflared-windows-amd64.exe`.
+
+**Linux:**
+```
+sudo apt install cloudflared
+```
+
+#### Spuštění tunelu
 
 Otevřete **druhý terminál** (první nechte běžet s addonem) a spusťte:
 
 ```
-npx localtunnel --port 7000
+cloudflared tunnel --url http://localhost:7000
 ```
 
-Při prvním spuštění se vás zeptá, zda chcete nainstalovat `localtunnel` — potvrďte **y** (ano).
-
-Po spuštění se zobrazí HTTPS adresa, například:
+Po několika sekundách se v terminálu zobrazí HTTPS adresa, hledejte řádek obsahující `.trycloudflare.com`, například:
 
 ```
-your url is: https://nice-fish-42.loca.lt
+https://something-random-words.trycloudflare.com
 ```
 
-**Poznámka:** Při prvním otevření localtunnel URL v prohlížeči se může zobrazit stránka s tlačítkem "Click to Continue". Stačí kliknout a pokračovat.
+Tuto adresu si zkopírujte.
 
 ### 6. Přidejte addon do Stremio
 
@@ -93,14 +107,14 @@ your url is: https://nice-fish-42.loca.lt
 2. Jděte do **Nastavení** (ikona ozubeného kolečka) → **Addony**
 3. Do pole pro URL addonu vložte vaši HTTPS adresu z předchozího kroku s `/manifest.json` na konci, například:
    ```
-   https://nice-fish-42.loca.lt/manifest.json
+   https://something-random-words.trycloudflare.com/manifest.json
    ```
-   (použijte svou vlastní adresu, kterou vám localtunnel zobrazil)
+   (použijte svou vlastní adresu, kterou vám cloudflared zobrazil)
 4. Klikněte na **Nainstalovat**
 
 Hotovo! Při procházení filmů a seriálů uvidíte CSFD hodnocení.
 
-**Důležité:** Musíte mít otevřené oba terminály — jeden s `node index.js` a druhý s `npx localtunnel`. Po restartu se HTTPS adresa změní a budete muset addon ve Stremio přeinstalovat s novou adresou.
+**Důležité:** Musíte mít otevřené oba terminály — jeden s `node index.js` a druhý s `cloudflared tunnel`. Po restartu se HTTPS adresa změní a budete muset addon ve Stremio přeinstalovat s novou adresou.
 
 ---
 
